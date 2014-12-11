@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+
+<project name="JSON-Editor" default="build" 
+	xmlns:alex="com.elixirtech.alex2.ant" xmlns:cfs="com.elixirtech.cfs">
+
+	<property file="${user.home}/build/V4.properties"/>
+
+	<!-- setup Alexandria -->
+	<path id="alex2.classpath">
+		<fileset dir="${alex2.home}" includes="*.jar"/>
+	</path>
+	<taskdef classpathref="alex2.classpath" resource="com/elixirtech/cfs/antlib.xml" uri="com.elixirtech.cfs" />
+
+	<target name="build-coffee">
+		<cfs:coffee-compiler toDir="gen" bare="true" verbose="true">
+			<fileset dir="coffee/src">
+				<include name="defaults.coffee"/>
+				<include name="core.coffee"/>
+				<include name="definitionHelper.coffee"/>
+	        	<!--include name="**/*.coffee"/-->
+			</fileset>
+		</cfs:coffee-compiler>
+	</target>
+
+	<target name="build-js" >
+		<concat destfile="lib/json-editor.js" overwrite="true" encoding="UTF-8" fixlastline="true" eol="lf">
+			<filelist dir="gen">
+				<file name="core.js" />
+
+				<!--file name="intro.js" />
+				<file name="class.js" />
+				<file name="ie9.js" />
+				<file name="utilities.js" />
+				<file name="core.js" />
+				<file name="validator.js" />
+				<file name="editor.js" />
+				<file name="editors/null.js" />
+				<file name="editors/string.js" />
+				<file name="editors/number.js" />
+				<file name="editors/integer.js" />
+				<file name="editors/object.js" />
+				<file name="editors/array.js" />
+				<file name="editors/table.js" />
+				<file name="editors/multiple.js" />
+				<file name="editors/enum.js" />
+				<file name="editors/select.js" />
+				<file name="editors/multiselect.js" />
+				<file name="editors/base64.js" />
+				<file name="editors/upload.js" />
+				<file name="theme.js" />
+				<file name="themes/bootstrap2.js" />
+				<file name="themes/bootstrap3.js" />
+				<file name="themes/foundation.js" />
+				<file name="themes/html.js" />
+				<file name="themes/jqueryui.js" />
+				<file name="iconlib.js" />
+				<file name="iconlibs/bootstrap2.js" />
+				<file name="iconlibs/bootstrap3.js" />
+				<file name="iconlibs/fontawesome3.js" />
+				<file name="iconlibs/fontawesome4.js" />
+				<file name="iconlibs/foundation2.js" />
+				<file name="iconlibs/foundation3.js" />
+				<file name="iconlibs/jqueryui.js" />
+				<file name="templates/default.js" />
+				<file name="templates/ejs.js" />
+				<file name="templates/handlebars.js" />
+				<file name="templates/hogan.js" />
+				<file name="templates/markup.js" />
+				<file name="templates/mustache.js" />
+				<file name="templates/swig.js" />
+				<file name="templates/underscore.js" />
+				<file name="defaults.js" />
+				<file name="jquery.js" />
+				<file name="outro.js" /-->
+			</filelist>
+		</concat>
+	</target>
+
+	<target name="build" depends="build-coffee, build-js"></target>
+
+</project>
